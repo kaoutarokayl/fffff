@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${fournisseur.id != null ? 'Modifier Fournisseur' : 'Ajouter un Fournisseur'}">Ajouter un Fournisseur</title>
+    <style>
+        /* Style de la page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Gris clair */
+            margin: 0;
+            color: #333; /* Gris foncé */
+            background-image: url("C:/Users/Pc/Downloads/fournisseur.png");  /* Chemin de l'image */
+            background-repeat: no-repeat; /* Empêche la répétition de l'image */
+            background-size: cover; /* Ajuste l'image pour couvrir toute la page */
+        }
+
+        /* En-têtes */
+        h1 {
+            text-align: center;
+            color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+            font-weight: 300;
+            margin-top: 20px;
+        }
+
+        /* Formulaire */
+        form {
+            width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* Blanc */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(199, 151, 124, 0.73); /* Ombre du formulaire */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333; /* Gris foncé */
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd; /* Bordure grise */
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+            color: white; /* Blanc */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Effet de transition pour le hover */
+        }
+
+        button[type="submit"]:hover {
+            background-color: rgba(199, 151, 124, 0.8); /* Bleu plus foncé */
+        }
+
+        /* Style des liens */
+        a {
+            color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1 th:text="${fournisseur.id != null ? 'Modifier Fournisseur' : 'Ajouter un Fournisseur'}">Ajouter un Fournisseur</h1>
+
+<form th:action="${fournisseur.id != null ? '/fournisseur/update': '/fournisseur/add'}" method="post">
+    <!-- Champ caché pour l'ID du fournisseur, utilisé seulement pour la modification -->
+    <input type="hidden" name="id" th:value="${fournisseur.id}" />
+
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" th:value="${fournisseur.nom}" required>
+
+    <label for="contact">Contact :</label>
+    <input type="text" id="contact" name="contact" th:value="${fournisseur.contact}" required>
+
+    <!-- Champ de sélection multiple pour les produits, affiché seulement lors de l'ajout -->
+
+
+    <button type="submit" th:text="${fournisseur.id != null ? 'Modifier' : 'Ajouter'}"></button>
+</form>
+
+<!-- Lien de retour à la liste des produits -->
+<a href="/produits">Retour à la liste</a>
+
+</body>
+</html>

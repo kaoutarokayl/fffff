@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Liste des Produits</title>
+  <style>
+    /* Style de la page */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      color: #333;
+
+    }
+
+    /* En-têtes */
+    h1 {
+      text-align: center;
+      color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+      font-weight: 300;
+      margin-top: 20px;
+    }
+
+    /* Style du tableau */
+    table {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(199, 151, 124, 0.73); /* Ombre du tableau */
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+      color: white;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+
+    td {
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover td {
+      background-color: #f0f8ff; /* Bleu clair transparent */
+    }
+
+    /* Style des boutons et liens */
+    a, .return-link {
+      color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .return-link {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      color: white;
+      background-color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+      border-radius: 5px;
+      text-align: center;
+      transition: background 0.3s ease; /* Effet de transition pour le hover */
+    }
+
+    .return-link:hover {
+      background-color: rgba(199, 151, 124, 0.73); /* Bleu plus foncé */
+    }
+
+    /* Style des liens d'ajout */
+    a {
+      display: block; /* Afficher les liens comme blocs */
+      width: 200px; /* Largeur des liens */
+      margin: 10px auto; /* Marge autour des liens */
+      padding: 10px; /* Rembourrage dans les liens */
+      text-align: center; /* Centrer le texte */
+      color: white; /* Couleur du texte */
+      background-color: rgba(199, 151, 124, 0.73);
+      border-radius: 5px; /* Arrondir les coins */
+      text-decoration: none; /* Supprimer le soulignement */
+    }
+
+    a:hover {
+      background-color: rgba(199, 151, 124, 0.73);
+    }
+  </style>
+</head>
+<body>
+<h1>Inventaire des Produits</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Nom</th>
+    <th>Quantité</th>
+    <th>Fournisseur</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="produit : ${produits}">
+    <td th:text="${produit.nom}">Nom</td>
+    <td th:text="${produit.quantiteEnStock}">Quantité</td>
+    <td><a th:href="@{/fournisseur/{id}(id=${produit.fournisseur.id})}" th:text="${produit.fournisseur != null ? produit.fournisseur.nom : 'Aucun fournisseur'}">Fournisseur</a></td>
+    <td>
+      <a th:href="@{/produits/edit/{id}(id=${produit.id})}">Modifier</a>
+      <a th:href="@{/produits/delete/{id}(id=${produit.id})}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">Supprimer</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/produits/new">Ajouter un Nouveau Produit</a>
+<a href="/fournisseur_form">Ajouter un Nouveau Fournisseur</a>
+
+</body>
+
+
+</html>

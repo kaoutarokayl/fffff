@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Détail Fournisseur</title>
+    <style>
+        /* Style général de la page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* En-têtes principaux */
+        h1, h2, h3 {
+            text-align: center;
+            color: rgba(199, 151, 124, 0.73);
+            font-weight: 300;
+            margin-top: 20px;
+        }
+
+        /* Informations du fournisseur */
+        .fournisseur-details, .produits-fournis {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(199, 151, 124, 0.73);
+        }
+
+        .fournisseur-details h2, .produits-fournis h3 {
+            margin-top: 0;
+        }
+
+        .fournisseur-details p {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        /* Liste des produits */
+        .produits-fournis ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .produits-fournis li {
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        /* Bouton de retour */
+        .return-link {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            color: white;
+            background-color: rgba(199, 151, 124, 0.73);
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .return-link:hover {
+            background-color: rgba(199, 151, 124, 0.9);
+        }
+
+        /* Style pour les liens de modification et de suppression */
+        .action-links {
+            text-align: center; /* Centrer les liens dans ce conteneur */
+            margin-top: 20px;
+        }
+
+        .action-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(199, 151, 124, 0.73);
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+
+        .action-links a:hover {
+            background-color: rgba(199, 151, 124, 0.9);
+        }
+    </style>
+</head>
+<body>
+<h1>Détails du Fournisseur</h1>
+<div class="fournisseur-details">
+    <h2 th:text="${fournisseur.nom}">Nom du fournisseur</h2>
+    <p><strong>Contact:</strong> <span th:text="${fournisseur.contact}">Contact</span></p>
+</div>
+
+<div class="produits-fournis">
+    <h3>Produits Fournis</h3>
+    <ul>
+        <li th:each="produit : ${fournisseur.produitsFournis}">
+            <span th:text="${produit.nom}">Nom du produit</span> - Quantité : <span th:text="${produit.quantiteEnStock}">Quantité</span>
+        </li>
+    </ul>
+</div>
+
+<div class="action-links">
+    <a th:href="@{/fournisseur/update/{id}(id=${fournisseur.id})}">Modifier</a>
+    <a th:href="@{/fournisseur/delete/{id}(id=${fournisseur.id})}"
+       onclick="return confirm('Êtes-vous sûr de vouloir supprimer les informations de ce fournisseur ?');">Supprimer</a>
+</div>
+
+<a href="javascript:history.back()" class="return-link">Retour à la page précédente</a>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title> Produit </title>
+  <style>
+    /* Style de la page */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5; /* Gris clair */
+      margin: 0;
+      color: #333; /* Gris foncé */
+    }
+
+    /* En-têtes */
+    h1 {
+      text-align: center;
+      color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+      font-weight: 300;
+      margin-top: 20px;
+    }
+
+    /* Formulaire */
+    form {
+      width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff; /* Blanc */
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(199, 151, 124, 0.73); /* Ombre du formulaire */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333; /* Gris foncé */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd; /* Bordure grise */
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      background-color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+      color: white; /* Blanc */
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Effet de transition pour le hover */
+    }
+
+    button[type="submit"]:hover {
+      background-color: rgba(199, 151, 124, 0.73); /* Bleu plus foncé */
+    }
+
+    /* Style des liens */
+    a {
+      color: rgba(199, 151, 124, 0.73); /* Bleu clair */
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Style supplémentaire pour le select */
+    select {
+      appearance: none; /* Supprime le style par défaut du select */
+      -webkit-appearance: none; /* Pour les navigateurs WebKit */
+      -moz-appearance: none; /* Pour les navigateurs Firefox */
+      background-color: #fff; /* Fond blanc */
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%234a90e2' d='M4 7l4 4 4-4z'/></svg>"); /* Image SVG pour la flèche */
+      background-repeat: no-repeat;
+      background-position: right 10px center; /* Position de l'image */
+      background-size: 10px 10px; /* Taille de l'image */
+      padding-right: 30px; /* Espacement pour l'image */
+    }
+
+    /* Style pour le select en hover */
+    select:hover {
+      background-color: #f0f8ff; /* Bleu clair transparent */
+    }
+  </style>
+</head>
+<body>
+<h1>  </h1>
+
+<form th:action="${produit.id != null ? '/produits/save' : '/produits/save'}" method="post">
+  <!-- Champs cachés pour l'ID du produit -->
+  <input type="hidden" name="id" th:value="${produit.id}"/>
+
+  <!-- Champ Nom du produit -->
+  <label for="nom">Nom :</label>
+  <input type="text" id="nom" name="nom" th:value="${produit.nom}" required/>
+
+  <!-- Champ Quantité en Stock -->
+  <label for="quantiteEnStock">Quantité en Stock :</label>
+  <input type="number" id="quantiteEnStock" name="quantiteEnStock" th:value="${produit.quantiteEnStock}" required/>
+
+  <!-- Sélection du Fournisseur -->
+  <label for="fournisseur">Fournisseur :</label>
+  <select id="fournisseur" name="fournisseur.id" required>
+    <option value="" disabled th:text="${fournisseurs == null || fournisseurs.isEmpty() ? 'Aucun fournisseur disponible' : 'Sélectionnez un fournisseur'}">Sélectionnez un fournisseur</option>
+    <option th:each="fournisseur : ${fournisseurs}"
+            th:value="${fournisseur.id}"
+            th:text="${fournisseur.nom}"
+            th:selected="${fournisseur.id == produit.fournisseur?.id}">
+    </option>
+  </select>
+
+  <!-- Bouton d'envoi du formulaire -->
+  <button type="submit" th:text="${produit.id != null ? 'Modifier' : 'Ajouter'}"></button>
+</form>
+
+<!-- Lien de retour à la liste des produits -->
+<a href="/produits">Retour à la liste</a>
+</body>
+</html>
